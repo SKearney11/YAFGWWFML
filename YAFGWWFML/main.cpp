@@ -87,10 +87,13 @@ int makeMove(int player){
     }
     if(pile == 3){
         piles.at(2) -= prime;
+        if (piles.at(2) <= 0){
+            piles.at(2) = 0;
+        }
     }
-    if(piles.at(0)&& piles.at(1)&&piles.at(2) !=0)
-        return 0;
-    return player;
+    if(piles.at(0)== 0 && piles.at(1) == 0 && piles.at(2) ==0)
+        return player;
+    return 0;
 }
 
 void render(){
@@ -145,6 +148,14 @@ void render(){
         oss.str("");
     }
     
+    //show the current player
+    oss << "Player: " << player;
+    text.setPosition(10,10);
+    text.setFillColor(sf::Color::White);
+    text.setString(oss.str());
+    window.draw(text);
+    text.setFillColor(sf::Color::Black);
+    oss.str("");
     
     //draw buttons for pile 1
     int widthBetweenBlocks = 10;
@@ -162,18 +173,18 @@ void render(){
     }
     
     //display the amount of coins beside each pile
-    text.setPosition(130, 20);
+    text.setPosition(260, 20);
     text.setFillColor(sf::Color::White);
     oss << piles.at(0);
     text.setString(oss.str());
     window.draw(text);
     oss.str("");
-    text.setPosition(340, 20);
+    text.setPosition(470, 20);
     oss << piles.at(1);
     text.setString(oss.str());
     window.draw(text);
     oss.str("");
-    text.setPosition(540, 20);
+    text.setPosition(670, 20);
     oss << piles.at(2);
     text.setString(oss.str());
     window.draw(text);
@@ -183,5 +194,3 @@ void render(){
     // Update the window
     window.display();
 }
-
-
